@@ -1,0 +1,13 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+<TodoItemView todo="item1"></TodoItemView>
+@code {
+	public TodoItem item1 = new TodoItem
+		{
+			Description = "complte ",
+			DueDate = DateTime.Now,
+			IsCompleted = false ,
+			Id= 1
+		};
+}

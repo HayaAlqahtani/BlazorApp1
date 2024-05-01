@@ -1,0 +1,28 @@
+﻿﻿@using Microsoft.EntityFrameworkCore;
+@using BlazorApp1.Model;
+
+@page "/todo/create"
+
+<h3>TodoCreate</h3>
+<EditForm Model="@Data">
+    Description:
+    <InputText @bind-Value="@Data.Description"></InputText>
+    IsCompleted
+    <InputCheckbox @bind-Value="@Data.IsCompleted" />
+    <button class="btn btn-primary" @onclick="AddTodo">Add</button>
+</EditForm>
+
+@code {
+    [Inject] public NavigationManager manager { get; set; }
+    [Inject] public IDbContextFactory<ToDoDbContext> Factory { get; set; }
+
+    public TodoItem Data { get; set; } = new TodoItem();
+    public void AddTodo()
+    {
+        var db = Factory.CreateDbContext();
+        db.TodoItems.Add(Data);
+        db.SaveChanges();
+
+        manager.NavigateTo("/todo");
+    }
+}
